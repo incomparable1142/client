@@ -1,0 +1,106 @@
+{% extends "user/user_base.html" %}
+{% block title %}Work Page{% endblock %}
+{% block head %}
+  {{ super() }}
+<style>
+    td {    text-align: center;}
+    th {    text-align: center;}
+</style>
+{% endblock %}
+{% block content %}
+
+<p class="important">
+
+    <div id="login" class="span3 well well-large offset4">
+
+    <center>
+        <p style="color:blue; ">Survey Response</p><br>
+
+        Fill your response for the survey <b>'{{ survey.title }}'</b><br>
+        <hr>
+        <form method="post" action="/user/save_response">
+
+            <!--<input type="hidden" value="{{session['name']}}" name="user">-->
+            <input type="hidden" style="text-align: center" value="{{ survey._id}}" name="survey_id">
+            <input type="hidden" style="text-align: center" value="{{ survey.title }}" name="survey_title">
+            <input type="hidden" style="text-align: center" value="{{ survey.rowCount}}" name="rowCount">
+            <input type="hidden" style="text-align: center" value="{{ survey.rowCount}}" name="rowCount">
+
+            <div class="container">
+            <table width="400" border="1">
+            {%  for i in range(survey.rowCount+1) %}
+            {% if 'ques_id%s' % i in survey %}
+                <tr>
+                    <th> {{ survey.get('ques_id%s' % i) }} </th>
+                    <td> <input type="text"  style="text-align: center" name="value{{ i }}" required=""></td>
+                </tr>
+
+            {% endif %}
+            {% endfor %}
+            </table><br><input type="submit">
+            </div>
+        </form>
+    </center>
+    </table><br><br><br>
+
+
+
+
+
+
+<center>
+    <div id="login" class="span3 well well-large offset4">
+    <center>
+        <p style="color:blue; ">SURVEY RESPONSES</p><br>
+
+        {% for response in responses %}
+
+<div class="container">
+  <table class="table table-bordered">
+
+    <thead>
+      <tr>
+        <!--<th>User Id</th>-->
+        <th>Survey Title</th>
+        <!--<th>Survey Id</th>-->
+        <th>Time Stamp</th>
+        <th>User Id</th>
+        <th  colspan="4">Responses of <get_responses?id={{ response._id }}">{{ response.title}}</a></th>
+
+     </tr>
+    </thead>
+    <tbody>
+    <tr class="active">
+
+
+        <!--<td width="12%"><get_responses?id={{ response._id }}">{{ response._id}}</td>-->
+        <td width="12%"><get_responses?id={{ response._id }}">{{ response.title}}</td>
+        <!--<td width="12%"><get_responses?id={{ response._id }}">{{ response.survey_id}}</td>-->
+        <td width="18%"><get_responses?id={{ response._id }}">{{ response.timeStamp}}</td>
+        <td width="18%"><get_responses?id={{ response._id }}">{{ response.Session_email}}</td>
+
+        <td width="10%"><get_responses?id={{ response._id }}">{{ response.ques_description1 }}</td>
+        <td width="10%"><get_responses?id={{ response._id }}">{{ response.ques_description2 }}</td>
+        <td width="10%"><get_responses?id={{ response._id }}">{{ response.ques_description3 }}</td>
+        <td width="10%"><get_responses?id={{ response._id }}">{{ response.ques_description4 }}</td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+
+
+
+{% endfor %}<br>
+
+    </center>
+
+    </div>
+
+
+
+</center>
+    </div>
+
+</p>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "admin/admin_base.html" %}
+{% block title %}Work Page{% endblock %}
+{% block head %}
+  {{ super() }}
+
+    <style>
+        td {text-align: center;}
+        th {text-align: center;}
+    </style>
+
+{% endblock %}
+{% block content %}
+
+<p class="important">
+    {% if session['name'] %}
+
+    <div id="login" class="span3 well well-large offset4">
+        <center>
+            <p style="color:blue; ">SURVEY RESPONSES</p><br>
+            {% for response in responses %}
+
+            <div class="container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>User Id</th>
+                        <th>Survey Id</th>
+                        <th>Survey</th>
+                        <th>Time Stamp</th>
+                        <th>Session Id</th>
+                        <th colspan="4">Responses of <get_responses?id={{ response._id }}">{{ response.title}}</a></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class="active">
+                        <td width="17%"><get_responses?id={{ response._id }}">{{ response._id}}</td>
+                        <td width="17%"><get_responses?id={{ response._id }}">{{ response.survey_id}}</td>
+                        <td width="11%"><get_responses?id={{ response._id }}">{{ response.title}}</td>
+                        <td width="11%"><get_responses?id={{ response._id }}">{{ response.timeStamp}}</td>
+                        <td width="12%"><get_responses?id={{ response._id }}">{{ response.Session_email}}</td>
+                        <td width="8%"><get_responses?id={{ response._id }}">{{ response.ques_description1 }}</td>
+                        <td width="8%"><get_responses?id={{ response._id }}">{{ response.ques_description2 }}</td>
+                        <td width="8%"><get_responses?id={{ response._id }}">{{ response.ques_description3 }}</td>
+                        <td width="8%"><get_responses?id={{ response._id }}">{{ response.ques_description4 }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+
+    {% endfor %}<br>
+
+        </center>
+    </div>
+
+
+
+
+{% else %}
+
+    <p style="color: red"> You still didn't set your Email, do it
+    <a href="{{ url_for('admin') }}">here</a></p>
+
+    <div id="login" class="span3 well well-large offset4">
+    <center>
+    <div class="container">
+    <!--<div class="row">-->
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1>Sign into your account</h1><br>
+            <div class="account-wall">
+                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120" alt="">
+                <form class="form-signin"  action="/admin/admin_login" method="post">
+
+                    <input type="email" class="form-control" placeholder="Email" name="email" required autofocus >
+                    <input type="password" class="form-control" placeholder="Password" name="password" required>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+                    <label class="checkbox pull-left">
+                    <input type="checkbox" value="remember-me">Remember me
+                </label>
+
+                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                </form>
+            </div><br><br><br><br>
+            <!--<a href="#" class="text-center new-account">Create an account </a><br><br><br><br>-->
+        </div>
+    </div>
+</div>
+        </center>
+
+
+         {% endif %}
+
+    </div></p>
+{% endblock %}
